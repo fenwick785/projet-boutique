@@ -4,6 +4,7 @@ require_once("./include/header.php");
 
 if (isset($_GET['id_produit'])) {
     extract($_GET);
+    
     $art = $bdd->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
     $art->bindValue(":id_produit", $_GET['id_produit'], PDO::PARAM_STR);
     $art->execute();
@@ -59,11 +60,13 @@ if (isset($_GET['id_produit'])) {
                     <hr>
                     <p>STOCK: <?php if ($stock > 0) {
                                     echo "IL EN RESTE";
-                                } else {
+                                } 
+                                else {
                                     echo "RUPTURE DE STOCK !!";
                                 } ?></p>
                     <hr>
                     <form action="panier.php" method="POST">
+                        <input type="hidden" name="id_produit" value="<?= $id_produit ?>">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Quantité souhaitée:</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="quantite">
@@ -75,7 +78,7 @@ if (isset($_GET['id_produit'])) {
                                 ?>
                             </select>
                         </div>
-                        <button href="" type="submit" class="btn btn-success col-md-4 offset-md-4">Ajouter au panier</button>
+                        <button href="" type="submit" class="btn btn-success col-md-4 offset-md-4" name="ajout_panier">Ajouter au panier</button>
                     </form>
                 </div>
             </div>
